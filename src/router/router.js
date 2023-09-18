@@ -7,6 +7,7 @@ import Appointment from "../pages/Appointment/Appointment";
 import Reviews from "../pages/Reviews/Reviews";
 import ContactUs from "../pages/ContactUs/ContactUs";
 import Login from "../pages/Login/Login";
+import Secondary from "../layout/Secondary/Secondary";
 
 export const router = createBrowserRouter([
     {
@@ -19,5 +20,10 @@ export const router = createBrowserRouter([
             { path: "/login", element: <Login></Login> },
             { path: "*", element: <NotFound></NotFound> }
         ])
-    }
+    },
+    // {
+    //     path: "/doctorspotral", element: <Secondary></Secondary>, children: ([
+    //         { path: "/login", element: <Login></Login> },
+    //     ])
+    // }
 ])

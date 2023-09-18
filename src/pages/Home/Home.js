@@ -5,6 +5,7 @@ import ServiceSection from '../../components/HomeComponents/ServiceSection/Servi
 import AboutSection from '../../components/HomeComponents/AboutSection/AboutSection';
 import AppointmentSection from '../../components/HomeComponents/AppointmentSection/AppointmentSection';
 import Review from '../../components/Review/Review';
+import Contract from '../../components/HomeComponents/Contract/Contract';
 
 const Home = () => {
     return (
@@ -15,6 +16,7 @@ const Home = () => {
             <AboutSection></AboutSection>
             <AppointmentSection></AppointmentSection>
             <Review></Review>
+            <Contract></Contract>
         </div>
     );
 };

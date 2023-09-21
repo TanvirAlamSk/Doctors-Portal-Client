@@ -8,6 +8,7 @@ import Reviews from "../pages/Reviews/Reviews";
 import ContactUs from "../pages/ContactUs/ContactUs";
 import Login from "../pages/Login/Login";
 import Secondary from "../layout/Secondary/Secondary";
+import Signup from "../pages/Signup/Signup";
 
 export const router = createBrowserRouter([
     {
@@ -18,6 +19,7 @@ export const router = createBrowserRouter([
             { path: "/reviews", element: <Reviews></Reviews> },
             { path: "/contract", element: <ContactUs></ContactUs> },
             { path: "/login", element: <Login></Login> },
+            { path: "/signup", element: <Signup></Signup> },
             { path: "*", element: <NotFound></NotFound> }
         ])
     },

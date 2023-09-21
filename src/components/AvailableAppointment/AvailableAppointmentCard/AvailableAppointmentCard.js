@@ -10,13 +10,13 @@ const AvailableAppointmentCard = ({ availableAppointment, selectDate }) => {
         <div className="card shadow-xl text-center">
             <div className="card-body items-center text-center">
                 <h2 className="card-title text-secondary">{name}</h2>
-                <p>{slots?.[0]}</p>
+                <p>{slots?.length > 0 ? slots?.[0] : "Try Another Day"}</p>
                 <div className="card-actions justify-Center">
-                    <button className='btn bg-gradient-to-r from-secondary to-primary text-semibold text-white mt-10' onClick={() => document.getElementById(`my_modal${_id}`).showModal()}>Book Appointment</button>
+                    <button className='btn bg-gradient-to-r from-secondary to-primary text-semibold text-white mt-8' onClick={() => document.getElementById(`booking_modal${_id}`).showModal()}>Book Appointment</button>
                 </div>
             </div>
             {/*  */}
-            <dialog id={`my_modal${_id}`} className="modal">
+            <dialog id={`booking_modal${_id}`} className="modal">
                 <div className="modal-box">
                     <div className='flex justify-between mb-12'>
                         <h3 className="font-bold text-lg">{name}</h3>

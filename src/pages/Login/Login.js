@@ -1,14 +1,55 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/UserContext/UserContext';
+import toast from 'react-hot-toast';
 
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const { userLogin, googleLogin } = useContext(AuthContext)
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/"
+
+    const notifyLoginSuccess = () => {
+        return toast.success('Login Successful.',
+            {
+                duration: 2000,
+                position: "top-center"
+            }
+        )
+
+    }
+    const notifyLoginUnSuccess = () => {
+        return toast.error("Email or Password Is wrong", {
+            duration: 2000,
+            position: "top-right"
+        })
+    }
+
+
+
+
     const handelLogin = data => {
-        console.log(data)
-        // console.log(errors)
-        // data.target.reset();
+        userLogin(data.email, data.password)
+            .then((userCredential) => {
+                fetch("http://localhost:5000/jwt", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify({ email: data.email })
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        localStorage.setItem("doctors-portal-token", data.token);
+                        notifyLoginSuccess()
+                        navigate(from, { replace: true })
+                    })
+            })
+            .catch((error) => notifyLoginUnSuccess())
+
     };
     return (
         <div className='flex justify-center items-center'>
@@ -31,8 +72,7 @@ const Login = () => {
                             <input {...register("password",
                                 {
                                     required: "Must fill up password field",
-                                    minLength: { value: 6, message: "Password must be minimum 6 or more character" },
-                                    pattern: { value: /(?=.*[A-Z])(?=.*[!@#$ &*])(?=.*[0-9])(?=.*[a-z])/, message: "password must be strong" }
+                                    minLength: { value: 6, message: "Password must be minimum 6 or more character" }
                                 }
                             )} type="password" className="input input-bordered w-full max-w-xs" />
                             {errors.password && <small className='text-red-500 mt-1 text-left'>{errors.password.message}</small>}
@@ -43,11 +83,11 @@ const Login = () => {
                         </div>
                         <input className='btn btn-accent w-full' type="submit" />
                         <label className="label mt-2">
-                            <span className="label-text-alt">New to Doctors Portal?<Link to="/signup" className='text-secondary'> Create new account</Link></span>
+                            <span className="label-text-alt">New to Doctors Portal?<Link to="/doctorspotral/signup" className='text-secondary'> Create new account</Link></span>
                         </label>
                     </form>
                     <div className="divider">OR</div>
-                    <input className='btn btn-outline w-full' value="CONTINUE WITH GOOGLE" />
+                    <input onClick={googleLogin} className='btn btn-outline w-full' value="CONTINUE WITH GOOGLE" />
                 </div>
             </div>
         </div>

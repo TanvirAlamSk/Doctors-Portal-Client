@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import "./Header.css"
+import { AuthContext } from '../../context/UserContext/UserContext';
 
 const Header = () => {
-
+    const { user, logOut } = useContext(AuthContext)
 
     return (
         <div className="navbar bg-base-100 ">
@@ -16,9 +17,15 @@ const Header = () => {
                         <li><NavLink to="/">Home</NavLink></li>
                         <li><NavLink to="/about">About</NavLink></li>
                         <li><NavLink to="/appointment">Appointment</NavLink></li>
-                        <li><NavLink to="/reviews">Reviews</NavLink></li>
+                        <li><NavLink to="/dashboard">DashBoard</NavLink></li>
                         <li><NavLink to="/contract">Contact Us</NavLink></li>
-                        <li><NavLink to="/login">Login</NavLink></li>
+                        {
+                            user ?
+                                <li><button onClick={logOut}>LogOut</button></li>
+                                :
+                                <li><NavLink to="/login">Login</NavLink></li>
+                        }
+
                     </ul>
                 </div>
                 <Link to="/" className="btn btn-ghost normal-case text-xl">Doctors Portal</Link>
@@ -28,9 +35,14 @@ const Header = () => {
                     <li><NavLink to="/">Home</NavLink></li>
                     <li><NavLink to="/about">About</NavLink></li>
                     <li><NavLink to="/appointment">Appointment</NavLink></li>
-                    <li><NavLink to="/reviews">Reviews</NavLink></li>
+                    <li><NavLink to="/dashboard">DashBoard</NavLink></li>
                     <li><NavLink to="/contract">Contact Us</NavLink></li>
-                    <li><NavLink to="/login">Login</NavLink></li>
+                    {
+                        user ?
+                            <li><button onClick={logOut}>LogOut</button></li>
+                            :
+                            <li><NavLink to="/doctorspotral/login">Login</NavLink></li>
+                    }
                 </ul>
             </div>
         </div>

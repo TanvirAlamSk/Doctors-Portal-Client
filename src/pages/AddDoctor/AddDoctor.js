@@ -23,10 +23,11 @@ const AddDoctor = () => {
                         image: imgData.data.url
                     }
 
-                    fetch("http://localhost:5000/doctors", {
+                    fetch("https://doctors-portal-server-green-xi.vercel.app/doctors", {
                         method: "POST",
                         headers: {
-                            "content-type": "application/json"
+                            "content-type": "application/json",
+                            authorization: `Bearer  ${localStorage.getItem("doctors-portal-token")}`
                         },
                         body: JSON.stringify(doctor)
                     })

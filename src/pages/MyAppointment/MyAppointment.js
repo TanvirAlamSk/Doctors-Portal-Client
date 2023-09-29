@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../context/UserContext/UserContext';
+import { Link } from 'react-router-dom';
 
 const MyAppointment = () => {
     const { user } = useContext(AuthContext);
     const { data: myBooked = [], refetch } = useQuery({
         queryKey: ["booking", user?.email],
         queryFn: async () => {
-            const response = await fetch(`http://localhost:5000/bookings?email=${user?.email}`, {
+            const response = await fetch(`https://doctors-portal-server-green-xi.vercel.app/bookings?email=${user?.email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("doctors-portal-token")}`
                 }
@@ -34,6 +35,7 @@ const MyAppointment = () => {
                             <th>Treatment</th>
                             <th>Date</th>
                             <th>Slot</th>
+                            <th>Payment</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,6 +46,17 @@ const MyAppointment = () => {
                                 <td>{book.treatment}</td>
                                 <td>{book.date}</td>
                                 <td>{book.slot}</td>
+                                <td>
+                                    {book.price && !book.paid ?
+                                        <Link to={`/dashboard/payment/${book._id}`}>
+                                            <button className='btn btn-xs btn-secondary text-white'>
+                                                Pay
+                                            </button>
+                                        </Link>
+                                        :
+                                        <p className='text-green-500 font-medium'>Paid</p>
+                                    }
+                                </td>
                             </tr>)
                         }
                     </tbody>

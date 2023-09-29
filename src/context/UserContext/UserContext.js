@@ -15,7 +15,7 @@ const UserContext = ({ children }) => {
     const userJwtVerify = () => {
         onAuthStateChanged(auth, (currentUser) => {
             const email = currentUser.email
-            fetch(`http://localhost:5000/bookings?email=${email}`, {
+            fetch(`https://doctors-portal-server-green-xi.vercel.app/bookings?email=${email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("doctors-portal-token")}`
                 }

@@ -9,7 +9,7 @@ const AvailableAppointment = ({ selectDate }) => {
 
     // const [availableAppointments, setAvailableAppointments] = useState([]);
     // useEffect(() => {
-    //     fetch(`http://localhost:5000/appointmentoptions?date=${date}`)
+    //     fetch(`https://doctors-portal-server-green-xi.vercel.app/appointmentoptions?date=${date}`)
     //         .then((response) => response.json())
     //         .then((data) => setAvailableAppointments(data))
     // }, [date])
@@ -18,7 +18,7 @@ const AvailableAppointment = ({ selectDate }) => {
     const { data: availableAppointments = [], refetch } = useQuery({
         queryKey: ["availableAppointments", date],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/appointmentoptions?date=${date}`)
+            const res = await fetch(`https://doctors-portal-server-green-xi.vercel.app/appointmentoptions?date=${date}`)
             const data = await res.json()
             return data;
         }

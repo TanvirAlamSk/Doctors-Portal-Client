@@ -7,14 +7,14 @@ const Users = () => {
     const { data: allUsers = [], refetch } = useQuery({
         queryKey: ["users"],
         queryFn: async () => {
-            const response = await fetch("http://localhost:5000/users")
+            const response = await fetch("https://doctors-portal-server-green-xi.vercel.app/users")
             const data = response.json();
             return data;
         }
     })
 
     const handelMakeAdmin = (id) => {
-        fetch(`http://localhost:5000/users/${id}`, {
+        fetch(`https://doctors-portal-server-green-xi.vercel.app/users/${id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",

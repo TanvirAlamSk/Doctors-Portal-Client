@@ -34,7 +34,7 @@ const Login = () => {
     const handelLogin = data => {
         userLogin(data.email, data.password)
             .then((userCredential) => {
-                fetch("http://localhost:5000/jwt", {
+                fetch("https://doctors-portal-server-green-xi.vercel.app/jwt", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"

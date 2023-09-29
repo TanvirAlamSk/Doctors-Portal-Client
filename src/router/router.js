@@ -15,6 +15,8 @@ import Users from "../pages/Users/Users";
 import AdminRouter from "./AdminRouter";
 import AddDoctor from "../pages/AddDoctor/AddDoctor";
 import ManageDoctor from "../pages/ManageDoctor/ManageDoctor";
+import Payment from "../pages/Payment/Payment";
+import ErrorElement from "../pages/ErrorElement/ErrorElement";
 
 
 
@@ -35,7 +37,9 @@ export const router = createBrowserRouter([
         ])
     },
     {
-        path: "/dashboard", element: <PrivatrRouter><DashBoardLayout></DashBoardLayout></PrivatrRouter>, children: ([
+        path: "/dashboard", element: <PrivatrRouter><DashBoardLayout></DashBoardLayout></PrivatrRouter>,
+        errorElement: <ErrorElement></ErrorElement>,
+        children: ([
             {
                 path: "/dashboard", element: <MyAppointment></MyAppointment >
             },
@@ -47,7 +51,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dashboard/manage-doctor", element: <ManageDoctor></ManageDoctor>
-            }
+            },
+            {
+                path: "/dashboard/payment/:id", element: <Payment></Payment>,
+                loader: ({ params }) => fetch(`https://doctors-portal-server-green-xi.vercel.app/bookings/${params.id}`)
+            },
 
         ])
     },

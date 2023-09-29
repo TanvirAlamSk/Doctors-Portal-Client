@@ -44,7 +44,7 @@ const Signup = () => {
                         saveUserInDB(data.name, data.email);
                         //----------------------------------------
 
-                        fetch("http://localhost:5000/jwt", {
+                        fetch("https://doctors-portal-server-green-xi.vercel.app/jwt", {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json"
@@ -66,7 +66,7 @@ const Signup = () => {
     }
 
     const saveUserInDB = (name, email) => {
-        fetch("http://localhost:5000/users", {
+        fetch("https://doctors-portal-server-green-xi.vercel.app/users", {
             method: "POST",
             headers: {
                 "content-type": "application/json"

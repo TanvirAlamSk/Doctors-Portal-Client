@@ -17,7 +17,7 @@ const notifyBookingSuccess = () => {
 const AvailableAppointmentCard = ({ availableAppointment, selectDate, refetch }) => {
     const navigate = useNavigate()
     const { user } = useContext(AuthContext)
-    const { name, slots, _id } = availableAppointment;
+    const { name, slots, _id, price } = availableAppointment;
     const handelAppointment = (event) => {
         event.preventDefault()
         const form = event.target
@@ -32,11 +32,13 @@ const AvailableAppointmentCard = ({ availableAppointment, selectDate, refetch })
             date,
             slot,
             patientName,
+            price,
             phone,
-            email
+            email,
+
         }
 
-        fetch("http://localhost:5000/bookings", {
+        fetch("https://doctors-portal-server-green-xi.vercel.app/bookings", {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -60,6 +62,7 @@ const AvailableAppointmentCard = ({ availableAppointment, selectDate, refetch })
             <div className="card-body items-center text-center">
                 <h2 className="card-title text-secondary">{name}</h2>
                 <p className='mt-2 mb-4'>{slots?.length > 0 ? slots?.length + " SPACES AVAILABLE" : "Try Another Day"}</p>
+                <h5 className='font-semibold'>Price: <span className='text-primary'>${price}</span></h5>
                 <div className="card-actions justify-Center">
                     <button className='btn bg-gradient-to-r from-secondary to-primary text-semibold text-white ' onClick={() => document.getElementById(`booking_modal${_id}`).showModal()} disabled={slots.length == 0}>Book Appointment</button>
                 </div>

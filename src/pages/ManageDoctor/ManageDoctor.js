@@ -5,19 +5,24 @@ import toast from 'react-hot-toast';
 
 const ManageDoctor = () => {
     const [doctorInfo, setDoctorInfo] = useState("")
-
-    const { data: doctors = [], isLoading, refetch } = useQuery({
+    const { data: doctors = [], refetch } = useQuery({
         queryKey: ["doctors"],
         queryFn: async () => {
-            const response = fetch("http://localhost:5000/doctors");
+            const response = fetch("https://doctors-portal-server-green-xi.vercel.app/doctors", {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("doctors-portal-token")}`
+                }
+            });
             const data = (await response).json()
             return data;
         }
     })
     const handelDoctor = (doctorInfo) => {
-        // const id = doctorInfo._id
-        fetch(`http://localhost:5000/doctors/${doctorInfo._id}`, {
+        fetch(`https://doctors-portal-server-green-xi.vercel.app/doctors/${doctorInfo._id}`, {
             method: "DELETE",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("doctors-portal-token")}`
+            }
         })
             .then((response) => response.json())
             .then((data) => {
